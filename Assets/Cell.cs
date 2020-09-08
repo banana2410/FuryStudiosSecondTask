@@ -18,9 +18,8 @@ public enum TypeOfValue
     F
 }
 
-public class Cell : MonoBehaviour
+public class Cell
 {
-    private SpriteRenderer _spriteRenderer => gameObject.GetComponent<SpriteRenderer>();
     public ContentOfCell ContentOfCell;
     private int _hNumber;
     private int _gNumber;
@@ -28,10 +27,6 @@ public class Cell : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI _hNumberText, _gNumberText, _fNumberText;
 
-    private void Awake()
-    {
-        
-    }
     public void SetValue(TypeOfValue typeOfValue, int value)
     {
         switch (typeOfValue)
@@ -54,12 +49,12 @@ public class Cell : MonoBehaviour
         }
     }
 
-    public void SetContentOfCell(ContentOfCell contentOfCell)
+ /*   public void SetContentOfCell(ContentOfCell contentOfCell)
     {
         switch (contentOfCell)
         {
             case ContentOfCell.Nothing:
-                
+
                 break;
             case ContentOfCell.Obstacle:
                 _gNumberText.gameObject.SetActive(false);
@@ -76,7 +71,7 @@ public class Cell : MonoBehaviour
             default:
                 break;
         }
-    }
+    }*/
 
 
 
