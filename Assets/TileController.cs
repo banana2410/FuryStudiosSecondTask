@@ -27,18 +27,44 @@ public class TileController : MonoBehaviour
         _tileMap.size = new Vector3Int(100, 100, 0);
         generateBoard();
         setInitialObstacles();
-        addCellsToLists();
+
     }
-    private void addCellsToLists()
+    private List<Cell> getNeighbours(Cell cell)
     {
-        for (int x = 0; x < BoardCell.GetLength(0); x++)
+        List<Cell> neighbourCells = new List<Cell>();
+        for (int x = -1; x <= 1; x++)
         {
-            for (int y = 0; y < BoardCell.GetLength(1); y++)
+            for (int y = -1; y <= 1; y++)
             {
-                if (BoardCell[x, y].ContentOfCell == ContentOfCell.Nothing)
-                    WalkableCells.Add(BoardCell[x, y]);
-                else
-                    NonWalkableCells.Add(BoardCell[x, y]);
+                if (x == 0 && y == 0)
+                    continue;
+                int currentX = cell._xPos + x;
+                int currentY = cell._yPos + y;
+                if (currentX > 0 && currentY > 0 && currentX < BOARD_WIDTH && currentY < BOARD_WIDTH)
+                    neighbourCells.Add(cell);
+            }
+        }
+        return neighbourCells;
+    }
+    private int getDistance(Cell startCell, Cell endCell)
+    {
+        int distanceX = Mathf.Abs(startCell._xPos - endCell._xPos);
+        int distanceY = Mathf.Abs(startCell._yPos - endCell._yPos);
+        if (distanceY > distanceX)
+            return distanceX + (distanceY - distanceX);
+        return distanceY + (distanceX - distanceY);
+    }
+    private void findPath(Cell startCell, Cell endCekk)
+    {
+        List<Cell> walkableCells = new List<Cell>();
+        List<Cell> nonWalkableCells = new List<Cell>();
+        walkableCells.Add(startCell);
+        while(walkableCells.Count> 0)
+        {
+            Cell currentCell = walkableCells[0];
+            for (int i = 0; i < walkableCells.Count; i++)
+            {
+                if(walkableCells[i].GetFCost()<currentCell.GetFCost()||walkableCells[i].GetFCost())
             }
         }
     }
@@ -52,26 +78,22 @@ public class TileController : MonoBehaviour
         }
     }
 
-    private CustomTile getTile(Vector3Int position)
+    private void updateTileVisual(Vector3Int tilePos)
     {
-        return _tileMap.GetTile<CustomTile>(position);
-    }
-    private void updateTileVisual(Vector3Int i)
-    {
-        ContentOfCell contentOfCell = BoardCell[i.x, i.y].ContentOfCell;
+        ContentOfCell contentOfCell = BoardCell[tilePos.x, tilePos.y].ContentOfCell;
         switch (contentOfCell)
         {
             case ContentOfCell.Nothing:
-                _tileMap.SetTile(new Vector3Int(i.x, i.y, 0), EmptyTile);
+                _tileMap.SetTile(new Vector3Int(tilePos.x, tilePos.y, 0), EmptyTile);
                 break;
             case ContentOfCell.Obstacle:
-                _tileMap.SetTile(new Vector3Int(i.x, i.y, 0), ObstacleTile);
+                _tileMap.SetTile(new Vector3Int(tilePos.x, tilePos.y, 0), ObstacleTile);
                 break;
             case ContentOfCell.Start:
-                _tileMap.SetTile(new Vector3Int(i.x, i.y, 0), StartTile);
+                _tileMap.SetTile(new Vector3Int(tilePos.x, tilePos.y, 0), StartTile);
                 break;
             case ContentOfCell.Finish:
-                _tileMap.SetTile(new Vector3Int(i.x, i.y, 0), FinishTile);
+                _tileMap.SetTile(new Vector3Int(tilePos.x, tilePos.y, 0), FinishTile);
                 break;
             default:
                 break;
@@ -84,7 +106,7 @@ public class TileController : MonoBehaviour
         {
             for (int y = 0; y < BoardCell.GetLength(1); y++)
             {
-                Cell cell = new Cell();
+                Cell cell = new Cell(x, y);
                 BoardCell[x, y] = cell;
             }
         }
@@ -107,6 +129,7 @@ public class TileController : MonoBehaviour
                     selectedCell.ContentOfCell = ContentOfCell.Start;
                     _selectedStartTile = selectedCell;
                     updateTileVisual(selectedTileCoord);
+                    Debug.Log(getNeighbours(selectedCell).Count);
                 }
                 else if (_selectedFinishTile == null)
                 {

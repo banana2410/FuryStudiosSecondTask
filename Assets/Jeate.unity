@@ -319,11 +319,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91ec21dc73e74d845a2aaced303e0a13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StartTile: {fileID: 11400000, guid: 2585f983797830f4e9bbaab90183fba5, type: 2}
-  FinishTile: {fileID: 11400000, guid: b21aebf0d4606e843bd877793d3010e1, type: 2}
-  ObstacleTile: {fileID: 11400000, guid: 4fb0934b0e99b284fb4c1707446eed32, type: 2}
+  StartTile: {fileID: 11400000, guid: 9624c4ff48b063149bb3d687cfb14495, type: 2}
+  FinishTile: {fileID: 11400000, guid: 5724b6baae363594d9bf60f2526fa478, type: 2}
+  ObstacleTile: {fileID: 11400000, guid: d35e4a967655ced439e0a926a143a862, type: 2}
   CurrentTile: {fileID: 11400000, guid: d5e5e7c941b1f1045a5bd32e1948c427, type: 2}
-  EmptyTile: {fileID: 11400000, guid: 73382ddbe45c6744a81d6fa893b4a85b, type: 2}
+  EmptyTile: {fileID: 11400000, guid: e3c97f00cf599e44f92c27efe5834b63, type: 2}
 --- !u!1 &1587395802
 GameObject:
   m_ObjectHideFlags: 0
