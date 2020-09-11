@@ -6,8 +6,8 @@ using UnityEngine.Tilemaps;
 
 public enum ContentOfCell
 {
-    Nothing,
-    Obstacle,
+    Walkable,
+    NonWalkable,
     Start,
     Finish
 }
@@ -26,10 +26,12 @@ public class Cell
         _yPos = yPos;
     }
     public ContentOfCell ContentOfCell;
+    public bool IsWalkable = true;
     public int _xPos;
     public int _yPos;
-    private int _hCost;
-    private int _gCost;
+    public int _hCost;
+    public int _gCost;
+    public Cell ParentCell;
 
     public void SetValue(TypeOfValue typeOfValue, int value)
     {
