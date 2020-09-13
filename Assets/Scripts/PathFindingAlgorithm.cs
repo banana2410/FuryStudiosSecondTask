@@ -215,8 +215,4 @@ public class PathFindingAlgorithm : MonoBehaviour
         _visualGrid.UpdateTileVisual(new Vector3Int(targetCell.XPos, targetCell.YPos, 0), ContentOfCell.Finish);
         path.Reverse();
     }
-    public void ResetScene()
-    {
-        UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex);
-    }
 }
